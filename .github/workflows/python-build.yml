@@ -1,0 +1,77 @@
+name: Python Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  python-build:
+    name: Python Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - id: checkout-repo
+      name: Checkout repository
+      uses: actions/checkout@v3
+    - id: ensure-requirements
+      name: Ensure that there is a requirements.txt
+      shell: bash
+      run: |
+        # Create requirements.txt if it does not exist
+        touch requirements.txt
+    - id: setup-python
+      name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ">=3.12"
+        cache: 'pip'
+
+    - id: install-dependencies
+      name: Install dependencies
+      shell: bash
+      run: |
+        # Install dependencies (globally on the GitHub Actions runner)
+        echo '${{ steps.setup-python.outputs.python-version }}'
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pep8-naming flake8-variables-names flake8-docstrings pytest
+        flake8 --version
+        pytest -V
+        pip install -r requirements.txt
+
+    - id: compile
+      name: Compile all source and test files
+      shell: bash
+      run: |
+        # Compile all files
+        python -m compileall filed_chatgpt/ tests/
+
+    - id: lint-code
+      name: Check Python code formatting
+      shell: bash
+      run: |
+        # Check Python code formatting
+        flake8 src --extend-ignore=D,VNE,N --show-source --count --max-complexity=10 --max-line-length=79
+
+    - id: lint-pep-8
+      name: Check for PEP-8 naming conventions
+      shell: bash
+      run: |
+        # Check PEP-8 naming
+        flake8 src --extend-ignore=D,F,E,W --show-source --count --max-complexity=10 --max-line-length=79
+
+    - id: lint-docstrings
+      name: Check for PEP-257 docstring conventions
+      shell: bash
+      run: |
+        # Check docstrings
+        flake8 src --extend-ignore=D212,VNE,N,F,E,W --show-source --count --max-complexity=10 --max-line-length=79
+
+    - id: test
+      name: Run unit tests
+      shell: bash
+      run: |
+        # Run unit tests
+        if [[ -d "tests" ]];
+          then python -m pytest -v --exitfirst;
+          else echo "No tests run.";
+        fi

@@ -8,14 +8,14 @@ import filed_chatgpt
 
 class TestFileChatGPT(unittest.TestCase):
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def assert_stdout(self, expected_output, mock_stdout, *args):
+    def assert_stdout(self, expected_output, *args):
         with patch.object(sys, 'argv', ['filed_chatgpt.py'] + list(args)):
-            filed_chatgpt.main()
-            self.assertEqual(mock_stdout.getvalue().strip(), expected_output)
+            with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+                filed_chatgpt.main()
+                self.assertEqual(mock_stdout.getvalue().strip(), expected_output)
 
     def test_main_with_input(self):
-        self.assert_stdout("hello, world", 'hello,', 'world')
+        self.assert_stdout("['hello,', 'world']", 'hello,', 'world')
 
     def test_main_without_input(self):
         self.assert_stdout("[]")

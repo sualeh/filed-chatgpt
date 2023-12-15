@@ -1,1 +1,1 @@
-from .filed_chatgpt import main
+"""Main module for filed_chatgpt."""

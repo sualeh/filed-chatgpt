@@ -1,17 +1,17 @@
-# test_myscript.py
+"""Tests for filed_chatgpt."""
 
 import unittest
 from unittest.mock import patch
 from io import StringIO
 import sys
-import filed_chatgpt
+from filed_chatgpt.filed_chatgpt import main
 
 class TestFileChatGPT(unittest.TestCase):
 
     def assert_stdout(self, expected_output, *args):
         with patch.object(sys, 'argv', ['filed_chatgpt.py'] + list(args)):
             with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
-                filed_chatgpt.main()
+                main()
                 self.assertEqual(mock_stdout.getvalue().strip(), expected_output)
 
     def test_main_with_input(self):

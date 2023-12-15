@@ -1,3 +1,5 @@
+"""Main module for filed_chatgpt."""
+
 import sys
 
 

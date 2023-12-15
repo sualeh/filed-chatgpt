@@ -1,4 +1,4 @@
-# test_myscript.py
+"""Tests for filed_chatgpt."""
 
 import unittest
 from unittest.mock import patch

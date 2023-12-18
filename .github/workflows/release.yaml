@@ -1,0 +1,41 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - '*'
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+      - v[0-9]+.[0-9]+.[0-9]+-[A-Z]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+    - id: checkout-code
+      name: Checkout code
+      uses: actions/checkout@v2
+
+    - id: publish-docker-image
+      name: Publish Docker image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      shell: bash
+      run: |
+        # Publish Docker image
+        docker version
+        docker build -t filed_chatgpt .
+        docker image tag filed_chatgpt sualeh/filed_chatgpt:v16.20.6
+        docker image tag filed_chatgpt sualeh/filed_chatgpt:latest
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker push --all-tags sualeh/filed_chatgpt
+        docker logout

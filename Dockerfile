@@ -8,6 +8,8 @@ COPY \
     . /opt/filed_chatgpt/
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN \
+    pip install --upgrade pip \
+&&  pip install --no-cache-dir -r requirements.txt
 
 ENTRYPOINT ["python", "./filed_chatgpt/filed_chatgpt.py"]

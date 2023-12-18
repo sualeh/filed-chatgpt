@@ -1,0 +1,8 @@
+.git/
+.github/
+.gitignore
+.idea/
+.venv/
+README.md
+example_chat_file.yaml
+tests/

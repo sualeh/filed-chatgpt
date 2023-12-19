@@ -32,10 +32,11 @@ jobs:
       shell: bash
       run: |
         # Publish Docker image
+        echo ${{ github.ref_name }}
         docker version
         docker build -t filed_chatgpt .
-        docker image tag filed_chatgpt sualeh/filed_chatgpt:v16.20.6
-        docker image tag filed_chatgpt sualeh/filed_chatgpt:latest
+        docker image tag filed_chatgpt sualehfatehi/filed_chatgpt:${{ github.ref_name }}
+        docker image tag filed_chatgpt sualehfatehi/filed_chatgpt:latest
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        docker push --all-tags sualeh/filed_chatgpt
+        docker push --all-tags sualehfatehi/filed_chatgpt
         docker logout

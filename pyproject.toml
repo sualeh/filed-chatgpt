@@ -1,0 +1,38 @@
+[project]
+name = 'filed-chatgpt'
+description = 'Command-line interface to ChatGPT that saves chats in a file'
+authors = [
+  {name = 'Sualeh Fatehi'},
+  {name = 'James Gatter'},
+]
+classifiers = [  # https://pypi.org/classifiers/
+  'Development Status :: 1 - Planning',
+  'Intended Audience :: Developers',
+  'Topic :: Software Development :: Build Tools',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+]
+readme = 'README.md'
+#license = ...
+dynamic = ['version']
+requires-python = '>= 3.8'
+dependencies = []
+
+[project.urls]
+Repository = 'https://github.com/sualeh/filed-chatgpt.git'
+Issues = 'https://github.com/sualeh/filed-chatgpt/issues'
+
+[project.optional-dependencies]
+dev = ['pre-commit']
+#test = ['pytest']
+
+[build-system]
+requires = ['hatchling']
+build-backend = 'hatchling.build'
+
+[tool.hatch.version]
+path = 'filed_chatgpt/_version.py'

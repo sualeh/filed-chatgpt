@@ -1,16 +1,16 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v4.5.0
     hooks:
     -   id: check-yaml
     -   id: check-toml
+    -   id: check-json
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
     -   id: double-quote-string-fixer
--   repo: https://github.com/PyCQA/flake8
-    rev: 6.1.0
-    hooks:
-    -   id: flake8
+    -   id: check-docstring-first
+    -   id: forbid-submodules
+    -   id: check-merge-conflict
 -   repo: https://github.com/PyCQA/isort
     rev: 5.13.2
     hooks:

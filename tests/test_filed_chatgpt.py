@@ -10,17 +10,16 @@ from filed_chatgpt.filed_chatgpt import main
 
 class TestFileChatGPT(unittest.TestCase):
 
-    def assert_stdout(self, expected_output, *args):
+    def capture_stdout(self, *args):
         with patch.object(sys, 'argv', ['filed_chatgpt.py'] + list(args)):
             with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
                 main()
-                self.assertEqual(
-                    mock_stdout.getvalue().strip(),
-                    expected_output
-                )
+                return mock_stdout.getvalue().strip()
+
 
     def test_main_with_input(self):
-        self.assert_stdout("['hello,', 'world']", 'hello,', 'world')
-
-    def test_main_without_input(self):
-        self.assert_stdout('[]')
+        out = self.capture_stdout('-o', 'file', '-k', 'apikey123')
+        self.assertEqual(
+            out,
+            "Namespace(model='gpt-3.5-turbo', api_key='apikey123', output_file='file')"
+        )

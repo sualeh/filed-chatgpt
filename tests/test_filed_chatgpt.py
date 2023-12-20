@@ -5,7 +5,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-from filed_chatgpt.filed_chatgpt import main
+from filed_chatgpt.filed_chatgpt import get_args, main
 
 
 class TestFileChatGPT(unittest.TestCase):
@@ -17,8 +17,11 @@ class TestFileChatGPT(unittest.TestCase):
                 return mock_stdout.getvalue().strip()
 
     def test_main_with_input(self):
-        out = self.__capture_stdout('-o', 'file', '-k', 'apikey123')
-        self.assertEqual(
-            out,
-            'Using model: gpt-3.5-turbo and output file: file'
-        )
+        args = ['filed_chatgpt.py'] + ['-o', 'path/file', '-m', 'somemodel']
+        with patch.object(sys, 'argv', args):
+            out = get_args()
+            expected_arg_dict = {
+                'model': 'somemodel',
+                'output_file': 'path/file'
+            }
+            self.assertDictEqual(expected_arg_dict, out)

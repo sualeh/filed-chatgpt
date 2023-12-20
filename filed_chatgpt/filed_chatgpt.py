@@ -12,12 +12,13 @@ def main():
 
 
 def __chat_loop(args):
+    model = args['model']
     while True:
-        user_input = input('?: ')
-        if user_input.lower() in ['exit', 'quit']:
+        user_prompt = input('?: ')
+        if user_prompt.lower() in ['exit', 'quit']:
             break  # Exit the loop
-        reply = complete(args['model'], user_input)
-        print(reply)
+        completion = complete(model, user_prompt)
+        print(completion)
         print()
 
 

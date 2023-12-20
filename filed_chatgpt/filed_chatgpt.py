@@ -2,27 +2,58 @@
 
 import argparse
 
+from openai import OpenAI, OpenAIError
+
 
 def main():
     """Process command-line arguments, and run the program."""
-    parser = __setup_argparse()
-    args = parser.parse_args()
-    print(f'Using model: {args.model} and output file: {args.output_file}')
+    args = get_args()
+    __chat_loop(args)
 
 
-def __setup_argparse():
+def __chat_loop(args):
+    model = args['model']
+    while True:
+        user_prompt = input('?: ')
+        if user_prompt.lower() in ['exit', 'quit']:
+            break  # Exit the loop
+        completion = complete(model, user_prompt)
+        print(completion)
+        print()
+
+
+def complete(model: str, user_prompt: str) -> str:
+    try:
+        client = OpenAI()
+        chat_completion = client.chat.completions.create(
+            model=model,
+            messages=[{'role': 'user', 'content': user_prompt}],
+        )
+        reply = chat_completion.choices[0].message.content
+    except OpenAIError as e:
+        reply = str(e)
+
+    return reply
+
+
+def get_args() -> dict:
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--model',
                         help='ChatGPT model',
                         default='gpt-3.5-turbo',
                         required=False)
-    parser.add_argument('-k', '--api-key',
-                        help='ChatGPT API key',
-                        required=True)
     parser.add_argument('-o', '--output-file',
                         help='Chat output file in YAML/ Markdown format',
                         required=True)
-    return parser
+
+    args = parser.parse_args()
+
+    arg_dict = {
+        'model': args.model,
+        'output_file': args.output_file
+    }
+
+    return arg_dict
 
 
 if __name__ == '__main__':

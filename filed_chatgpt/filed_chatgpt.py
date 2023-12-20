@@ -12,20 +12,27 @@ def main():
 
 
 def __chat_loop(args):
-    user_prompt = 'When was the first moon landing?'
-    reply = ''
+    while True:
+        user_input = input('?: ')
+        if user_input.lower() in ['exit', 'quit']:
+            break  # Exit the loop
+        reply = complete(args['model'], user_input)
+        print(reply)
+        print()
+
+
+def complete(model: str, user_prompt: str) -> str:
     try:
         client = OpenAI()
         chat_completion = client.chat.completions.create(
-            model=args['model'],
+            model=model,
             messages=[{'role': 'user', 'content': user_prompt}],
         )
         reply = chat_completion.choices[0].message.content
     except OpenAIError as e:
         reply = str(e)
 
-    print(user_prompt)
-    print(reply)
+    return reply
 
 
 def get_args() -> dict:

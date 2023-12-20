@@ -5,12 +5,12 @@ import argparse
 
 def main():
     """Process command-line arguments, and run the program."""
-    parser = setup_argparse()
+    parser = __setup_argparse()
     args = parser.parse_args()
     print(f'Using model: {args.model} and output file: {args.output_file}')
 
 
-def setup_argparse():
+def __setup_argparse():
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--model',
                         help='ChatGPT model',

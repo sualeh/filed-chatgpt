@@ -15,7 +15,7 @@ def __chat_loop(args):
     user_prompt = 'When was the first moon landing?'
     reply = ''
     try:
-        client = OpenAI(api_key=args['api_key'])
+        client = OpenAI()
         chat_completion = client.chat.completions.create(
             model=args['model'],
             messages=[{'role': 'user', 'content': user_prompt}],

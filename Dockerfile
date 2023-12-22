@@ -12,4 +12,4 @@ RUN \
     pip install --upgrade pip \
 &&  pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "./filed_chatgpt/filed_chatgpt.py"]
+ENTRYPOINT ["python", "./filed_chatgpt/filed_chatgpt_main.py"]

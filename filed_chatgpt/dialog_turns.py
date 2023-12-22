@@ -31,7 +31,7 @@ class DialogTurns:
             return
         self.dialog_turns.append(message)
 
-    def get_last_message(self) -> Message:
+    def get_last_message(self) -> Message | None:
         """
         Retrieve the last message in the dialog turns.
 

@@ -70,7 +70,7 @@ class Message:
         Returns:
             str: The content of the message.
         """
-        return self.content()
+        return self.content
 
     def message_id(self) -> str:
         """

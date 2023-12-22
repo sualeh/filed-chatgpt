@@ -20,6 +20,10 @@ class DialogTurns:
     def get_last_message(self) -> Message:
         return self.dialog_turns[:1][0]
 
+    def messages(self):
+        return [{'role': message.role, 'content': message.content}
+                for message in self.dialog_turns]
+
     def serialize(self, output_file: str):
         if output_file is None:
             return

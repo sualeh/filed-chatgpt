@@ -22,18 +22,18 @@ def __chat_loop(dialog_turns: DialogTurns):
         if user_prompt.lower() in ['exit', 'quit']:
             break  # Exit the loop
         dialog_turns.add_message(Message.from_prompt(user_prompt))
-        completion: str = complete(user_prompt, dialog_turns)
+        completion: str = complete(dialog_turns)
 
         print(completion)
         print()
 
 
-def complete(user_prompt: str, dialog_turns: DialogTurns) -> str:
+def complete(dialog_turns: DialogTurns) -> str:
     try:
         client = OpenAI()
         chat_completion: ChatCompletion = client.chat.completions.create(
             model=dialog_turns.model,
-            messages=[{'role': 'user', 'content': user_prompt}],
+            messages=dialog_turns.messages()
         )
         dialog_turns.add_message(Message.from_completion(chat_completion))
         reply = chat_completion.choices[0].message.content

@@ -9,5 +9,6 @@
     "commit": false,
     "publish": false,
     "sync": false
-  }
+  },
+  "git.autofetch": true
 }

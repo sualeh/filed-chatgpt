@@ -69,7 +69,7 @@ class DialogTurns:
         """
         Return a YAML string representation of the dialog turns.
 
-         Returns:
-             str: YAML string representation of the dialog turns.
-         """
+        Returns:
+            str: YAML string representation of the dialog turns.
+        """
         return yaml.dump(self, indent=4)

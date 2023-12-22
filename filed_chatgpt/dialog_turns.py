@@ -35,7 +35,7 @@ class DialogTurns:
         """
         Retrieve the last message in the dialog turns.
 
-         Returns:
+        Returns:
              Message: The last message in the dialog turns.
         """
         if len(self.dialog_turns) == 0:

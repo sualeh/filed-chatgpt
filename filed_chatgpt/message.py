@@ -14,7 +14,8 @@ class Message:
 
     @staticmethod
     def from_prompt(content: str, role: str = 'user'):
-        """Creates a Message instance from a user prompt.
+        """
+        Create a Message instance from a user prompt.
 
         Args:
             content (str): The text of the user prompt.
@@ -27,7 +28,8 @@ class Message:
 
     @staticmethod
     def from_completion(completion: ChatCompletion):
-        """Creates a Message instance from an AI completion.
+        """
+        Create a Message instance from an AI completion.
 
         Args:
             completion (ChatCompletion): The completion object from
@@ -40,7 +42,8 @@ class Message:
         return Message(completion.id, message.role, message.content)
 
     def __init__(self, message_id: str, role: str, content: str):
-        """Initialize a Message instance with the specified attributes.
+        """
+        Initialize a Message instance with the specified attributes.
 
         Args:
             message_id (str): Unique identifier for the message.
@@ -52,7 +55,8 @@ class Message:
         self.content = content
 
     def role(self) -> str:
-        """Returns the role of the user.
+        """
+        Return the role of the user.
 
         Returns:
             str: The role of the user.
@@ -60,7 +64,8 @@ class Message:
         return self.role
 
     def content(self) -> str:
-        """Returns the content of the message.
+        """
+        Return the content of the message.
 
         Returns:
             str: The content of the message.
@@ -68,7 +73,8 @@ class Message:
         return self.content()
 
     def message_id(self) -> str:
-        """Returns the unique identifier of the message.
+        """
+        Return the unique identifier of the message.
 
         Returns:
             str: The unique identifier of the message.
@@ -76,7 +82,8 @@ class Message:
         return self.message_id
 
     def __eq__(self, other) -> bool:
-        """Checks if two Message instances are equal.
+        """
+        Check if two Message instances are equal.
 
         Args:
             other (Message): Another Message instance.
@@ -91,7 +98,8 @@ class Message:
         return (self.role, self.content) == (other.role, other.content)
 
     def __str__(self) -> str:
-        """Returns a YAML string representation of the message.
+        """
+        Return a YAML string representation of the message.
 
         Returns:
             str: YAML string representation of the message.

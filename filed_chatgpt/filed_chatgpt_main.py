@@ -10,7 +10,9 @@ from filed_chatgpt.message import Message
 
 
 def main():
-    """Process command-line arguments, and run the program."""
+    """
+    Process command-line arguments, and run the program.
+    """
     args = get_args()
     dialog_turns = DialogTurns(args['model'])
     __chat_loop(dialog_turns)
@@ -63,7 +65,7 @@ def __complete(dialog_turns: DialogTurns) -> str:
 
 def get_args() -> dict:
     """
-    Parses command-line arguments and returns them as a dictionary.
+    Parse command-line arguments and return them as a dictionary.
 
     Returns:
         dict: Dictionary containing the defined arguments.

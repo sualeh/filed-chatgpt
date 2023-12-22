@@ -2,33 +2,40 @@
 
 import argparse
 
+from dialog_turns import DialogTurns
+from message import Message
 from openai import OpenAI, OpenAIError
+from openai.types.chat import ChatCompletion
 
 
 def main():
     """Process command-line arguments, and run the program."""
     args = get_args()
-    __chat_loop(args)
+    dialog_turns = DialogTurns(args['model'])
+    __chat_loop(dialog_turns)
+    dialog_turns.serialize(args['output_file'])
 
 
-def __chat_loop(args):
-    model = args['model']
+def __chat_loop(dialog_turns: DialogTurns):
     while True:
         user_prompt = input('?: ')
         if user_prompt.lower() in ['exit', 'quit']:
             break  # Exit the loop
-        completion = complete(model, user_prompt)
+        dialog_turns.add_message(Message.from_prompt(user_prompt))
+        completion: str = complete(dialog_turns)
+
         print(completion)
         print()
 
 
-def complete(model: str, user_prompt: str) -> str:
+def complete(dialog_turns: DialogTurns) -> str:
     try:
         client = OpenAI()
-        chat_completion = client.chat.completions.create(
-            model=model,
-            messages=[{'role': 'user', 'content': user_prompt}],
+        chat_completion: ChatCompletion = client.chat.completions.create(
+            model=dialog_turns.model,
+            messages=dialog_turns.messages()
         )
+        dialog_turns.add_message(Message.from_completion(chat_completion))
         reply = chat_completion.choices[0].message.content
     except OpenAIError as e:
         reply = str(e)

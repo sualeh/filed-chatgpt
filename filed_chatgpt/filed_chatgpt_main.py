@@ -2,10 +2,11 @@
 
 import argparse
 
-from dialog_turns import DialogTurns
-from message import Message
 from openai import OpenAI, OpenAIError
 from openai.types.chat import ChatCompletion
+
+from filed_chatgpt.dialog_turns import DialogTurns
+from filed_chatgpt.message import Message
 
 
 def main():
@@ -17,18 +18,35 @@ def main():
 
 
 def __chat_loop(dialog_turns: DialogTurns):
+    """
+    Continuously prompt the user, and print response until the user exits.
+
+    Args:
+        dialog_turns (DialogTurns): Instance of DialogTurns for
+            managing conversation history.
+    """
     while True:
         user_prompt = input('?: ')
         if user_prompt.lower() in ['exit', 'quit']:
             break  # Exit the loop
         dialog_turns.add_message(Message.from_prompt(user_prompt))
-        completion: str = complete(dialog_turns)
+        completion: str = __complete(dialog_turns)
 
         print(completion)
         print()
 
 
-def complete(dialog_turns: DialogTurns) -> str:
+def __complete(dialog_turns: DialogTurns) -> str:
+    """
+    Generate a completion for the conversation using the OpenAI API.
+
+    Args:
+        dialog_turns (DialogTurns): Instance of DialogTurns containing
+            the conversation history.
+
+    Returns:
+        str: The AI-generated response to the conversation.
+    """
     try:
         client = OpenAI()
         chat_completion: ChatCompletion = client.chat.completions.create(
@@ -44,6 +62,12 @@ def complete(dialog_turns: DialogTurns) -> str:
 
 
 def get_args() -> dict:
+    """
+    Parse command-line arguments and return them as a dictionary.
+
+    Returns:
+        dict: Dictionary containing the defined arguments.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', '--model',
                         help='ChatGPT model',

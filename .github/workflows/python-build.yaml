@@ -74,7 +74,4 @@ jobs:
       shell: bash
       run: |
         # Run unit tests
-        if [[ -d "tests" ]];
-          then python -m pytest -v --exitfirst;
-          else echo "No tests run.";
-        fi
+        python -m unitest --verbose

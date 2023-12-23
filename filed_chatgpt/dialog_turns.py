@@ -1,7 +1,6 @@
 """Dialog turns for serializing to a YAML file."""
 
 import yaml
-
 from filed_chatgpt.message import Message
 
 
@@ -50,8 +49,10 @@ class DialogTurns:
             list: List of dictionaries with 'role' and 'content'
                 keys for each message.
         """
-        return [{'role': message.role, 'content': message.content}
-                for message in self.dialog_turns]
+        return [
+            {"role": message.role, "content": message.content}
+            for message in self.dialog_turns
+        ]
 
     def serialize(self, output_file: str):
         """
@@ -62,7 +63,7 @@ class DialogTurns:
         """
         if output_file is None:
             return
-        with open(output_file, 'w', encoding='UTF-8') as yaml_file:
+        with open(output_file, "w", encoding="UTF-8") as yaml_file:
             yaml.dump(self, yaml_file, indent=4)
 
     def __str__(self):

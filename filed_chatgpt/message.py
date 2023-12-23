@@ -13,7 +13,7 @@ class Message:
     """
 
     @staticmethod
-    def from_prompt(content: str, role: str = 'user'):
+    def from_prompt(content: str, role: str = "user"):
         """
         Create a Message instance from a user prompt.
 
@@ -24,7 +24,7 @@ class Message:
         Returns:
             Message: The created Message instance.
         """
-        return Message('chatprmt-' + str(uuid.uuid4()), role, content)
+        return Message("chatprmt-" + str(uuid.uuid4()), role, content)
 
     @staticmethod
     def from_completion(completion: ChatCompletion):

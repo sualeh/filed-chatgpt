@@ -9,11 +9,11 @@ class TestDialogTurns(unittest.TestCase):
 
     def test_dialog_turns(self):
         """Test dialog turns class."""
-        dialog_turns = DialogTurns('model')
-        dialog_turns.add_message(Message.from_prompt('Hello world!'))
+        dialog_turns = DialogTurns("model")
+        dialog_turns.add_message(Message.from_prompt("Hello world!"))
         message = dialog_turns.get_last_message()
-        self.assertEqual(message, Message.from_prompt('Hello world!'))
+        self.assertEqual(message, Message.from_prompt("Hello world!"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

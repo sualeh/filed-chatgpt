@@ -9,8 +9,10 @@ ENV POETRY_NO_INTERACTION=1 \
 # Set the working directory to /filed_chatgpt
 WORKDIR /opt/filed_chatgpt/
 
-COPY pyproject.toml poetry.lock main.py README.md ./
-RUN poetry install  --no-root --without dev \
+COPY pyproject.toml poetry.lock main.py ./
+RUN \
+    touch README.md \
+ && poetry install  --no-root --without dev \
  && rm -rf $POETRY_CACHE_DIR
 COPY filed_chatgpt ./filed_chatgpt
 

@@ -15,6 +15,33 @@ pyyaml = "^6.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
+black = "^23.12.1"
+isort = "^5.13.2"
+taskipy = "^1.12.2"
+mypy = "^1.8.0"
+
+[tool.isort]
+profile = "black"
+src_paths = ["*.py"]
+
+[tool.black]
+line-length = 80
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.mypy_cache
+  | \.venv
+)/
+'''
+
+[tool.taskipy.tasks]
+pre_format = "isort ."
+format = "black ."
+pre_lint = "task format"
+lint = "mypy ."
+run = "python"
 
 [build-system]
 requires = ["poetry-core"]

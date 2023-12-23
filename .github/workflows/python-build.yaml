@@ -35,8 +35,7 @@ jobs:
       with:
         version: 1.7.1
         virtualenvs-create: true
-        virtualenvs-in-project: false
-        virtualenvs-path: ~/my-custom-path
+        virtualenvs-in-project: true
         installer-parallel: true
 
     - id: install-dependencies
@@ -52,6 +51,7 @@ jobs:
         touch requirements.txt
         pip install -r requirements.txt
         poetry install
+        source .venv/bin/activate
 
     - id: compile
       name: Compile all source and test files
@@ -86,4 +86,5 @@ jobs:
       shell: bash
       run: |
         # Run unit tests
+        source .venv/bin/activate
         python -m unittest --verbose

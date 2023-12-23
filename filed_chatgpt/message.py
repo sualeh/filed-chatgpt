@@ -52,9 +52,10 @@ class Message:
         """
         self._message_id = message_id
         self._role = role
-        self.content = content
+        self._text = content
 
-    def get_role(self) -> str:
+    @property
+    def role(self) -> str:
         """
         Return the role of the user.
 
@@ -63,16 +64,18 @@ class Message:
         """
         return self._role
 
-    def get_content(self) -> str:
+    @property
+    def content(self) -> str:
         """
         Return the content of the message.
 
         Returns:
             str: The content of the message.
         """
-        return self.content
+        return self._text
 
-    def get_message_id(self) -> str:
+    @property
+    def message_id(self) -> str:
         """
         Return the unique identifier of the message.
 
@@ -95,7 +98,7 @@ class Message:
             return False
         if not isinstance(other, Message):
             return False
-        return (self._role, self.content) == (other._role, other.content)
+        return (self._role, self._text) == (other._role, other.content)
 
     def __str__(self) -> str:
         """

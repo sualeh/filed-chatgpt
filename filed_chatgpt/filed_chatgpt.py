@@ -1,23 +1,13 @@
 """Main module for filed_chatgpt."""
-
 import argparse
-
-from openai import OpenAI, OpenAIError
-from openai.types.chat import ChatCompletion
 
 from filed_chatgpt.dialog_turns import DialogTurns
 from filed_chatgpt.message import Message
+from openai import OpenAI, OpenAIError
+from openai.types.chat import ChatCompletion
 
 
-def main():
-    """Process command-line arguments, and run the program."""
-    args = get_args()
-    dialog_turns = DialogTurns(args['model'])
-    __chat_loop(dialog_turns)
-    dialog_turns.serialize(args['output_file'])
-
-
-def __chat_loop(dialog_turns: DialogTurns):
+def chat_loop(dialog_turns: DialogTurns):
     """
     Continuously prompt the user, and print response until the user exits.
 
@@ -31,7 +21,6 @@ def __chat_loop(dialog_turns: DialogTurns):
             break  # Exit the loop
         dialog_turns.add_message(Message.from_prompt(user_prompt))
         completion: str = __complete(dialog_turns)
-
         print(completion)
         print()
 
@@ -83,9 +72,4 @@ def get_args() -> dict:
         'model': args.model,
         'output_file': args.output_file
     }
-
     return arg_dict
-
-
-if __name__ == '__main__':
-    main()

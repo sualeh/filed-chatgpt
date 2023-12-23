@@ -24,7 +24,7 @@ class Message:
         Returns:
             Message: The created Message instance.
         """
-        return Message('chatprmt-' + uuid.uuid4().__str__(), role, content)
+        return Message('chatprmt-' + uuid.uuid4(), role, content)
 
     @staticmethod
     def from_completion(completion: ChatCompletion):
@@ -50,20 +50,20 @@ class Message:
             role (str): The role of the message.
             content (str): The content of the message.
         """
-        self.message_id = message_id
-        self.role = role
+        self._message_id = message_id
+        self._role = role
         self.content = content
 
-    def role(self) -> str:
+    def get_role(self) -> str:
         """
         Return the role of the user.
 
         Returns:
             str: The role of the user.
         """
-        return self.role
+        return self._role
 
-    def content(self) -> str:
+    def get_content(self) -> str:
         """
         Return the content of the message.
 
@@ -72,14 +72,14 @@ class Message:
         """
         return self.content
 
-    def message_id(self) -> str:
+    def get_message_id(self) -> str:
         """
         Return the unique identifier of the message.
 
         Returns:
             str: The unique identifier of the message.
         """
-        return self.message_id
+        return self._message_id
 
     def __eq__(self, other) -> bool:
         """
@@ -95,7 +95,7 @@ class Message:
             return False
         if not isinstance(other, Message):
             return False
-        return (self.role, self.content) == (other.role, other.content)
+        return (self._role, self.content) == (other._role, other.content)
 
     def __str__(self) -> str:
         """

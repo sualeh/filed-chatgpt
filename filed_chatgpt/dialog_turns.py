@@ -62,7 +62,7 @@ class DialogTurns:
         """
         if output_file is None:
             return
-        with open(output_file, 'w') as yaml_file:
+        with open(output_file, 'w', encoding='UTF-8') as yaml_file:
             yaml.dump(self, yaml_file, indent=4)
 
     def __str__(self):

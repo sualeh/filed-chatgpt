@@ -74,4 +74,4 @@ jobs:
       shell: bash
       run: |
         # Run unit tests
-        python -m unitest --verbose
+        python -m unittest --verbose

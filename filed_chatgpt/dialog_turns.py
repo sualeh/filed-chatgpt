@@ -50,7 +50,7 @@ class DialogTurns:
                 keys for each message.
         """
         return [
-            {"role": message.role, "content": message.content}
+            {"role": message.get_role(), "content": message.content}
             for message in self.dialog_turns
         ]
 

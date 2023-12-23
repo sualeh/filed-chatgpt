@@ -24,7 +24,7 @@ class Message:
         Returns:
             Message: The created Message instance.
         """
-        return Message('chatprmt-' + uuid.uuid4(), role, content)
+        return Message('chatprmt-' + str(uuid.uuid4()), role, content)
 
     @staticmethod
     def from_completion(completion: ChatCompletion):

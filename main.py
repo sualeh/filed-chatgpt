@@ -1,7 +1,7 @@
 """Main module for filed_chatgpt."""
 
 from filed_chatgpt.dialog_turns import DialogTurns
-from filed_chatgpt.filed_chatgpt_main import chat_loop, get_args
+from filed_chatgpt.filed_chatgpt import chat_loop, get_args
 
 
 def main():
